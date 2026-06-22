@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>再访 · 开云 · 知识库</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: #f1f3f4;
+            color: #2d3436;
+            line-height: 1.7;
+            padding: 2.5rem 1.5rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .page-container {
+            max-width: 1080px;
+            width: 100%;
+        }
+
+        /* 柔和卡片风格 */
+        .card {
+            background: #ffffff;
+            border-radius: 24px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03), 0 1px 3px rgba(0, 0, 0, 0.02);
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            padding: 2rem 2.2rem;
+            margin-bottom: 2rem;
+            transition: box-shadow 0.2s ease;
+        }
+
+        .card:hover {
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.04), 0 2px 6px rgba(0, 0, 0, 0.02);
+        }
+
+        /* 标题层级 */
+        h1 {
+            font-size: 2.2rem;
+            font-weight: 580;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.25rem;
+            color: #1e272e;
+        }
+
+        .subhead {
+            font-size: 1rem;
+            color: #636e72;
+            border-bottom: 1px solid #e9ecef;
+            padding-bottom: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        h2 {
+            font-size: 1.4rem;
+            font-weight: 540;
+            margin: 0 0 0.75rem 0;
+            color: #2d3436;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        h2 .badge {
+            font-size: 0.7rem;
+            background: #dfe6e9;
+            color: #2d3436;
+            padding: 2px 12px;
+            border-radius: 40px;
+            font-weight: 450;
+        }
+
+        h3 {
+            font-size: 1.05rem;
+            font-weight: 520;
+            margin: 1.2rem 0 0.4rem 0;
+            color: #2d3436;
+        }
+
+        p {
+            margin-bottom: 0.9rem;
+            color: #2d3436;
+        }
+
+        small, .meta {
+            font-size: 0.9rem;
+            color: #636e72;
+        }
+
+        a {
+            color: #0984e3;
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.15s;
+        }
+
+        a:hover {
+            border-bottom-color: #0984e3;
+        }
+
+        /* 目录感网格 */
+        .directory-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1.2rem;
+            margin: 1.5rem 0 0.75rem;
+        }
+
+        .dir-item {
+            background: #fafbfc;
+            border-radius: 18px;
+            padding: 1.2rem 1rem;
+            border: 1px solid #edf0f2;
+            transition: background 0.15s;
+        }
+
+        .dir-item:hover {
+            background: #f4f6f8;
+        }
+
+        .dir-item .dir-title {
+            font-weight: 540;
+            font-size: 1rem;
+            margin-bottom: 0.3rem;
+            color: #1e272e;
+        }
+
+        .dir-item .dir-desc {
+            font-size: 0.85rem;
+            color: #636e72;
+        }
+
+        .dir-icon {
+            display: inline-block;
+            margin-right: 6px;
+            opacity: 0.65;
+        }
+
+        /* 提示区块 */
+        .tip-block {
+            background: #f8f9fa;
+            padding: 1.4rem 1.8rem;
+            border-radius: 36px;
+            border-left: 4px solid #74b9ff;
+            margin: 1.5rem 0 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .info-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem 2.5rem;
+            margin: 1rem 0 0.5rem;
+        }
+
+        .info-row span {
+            background: #f1f3f4;
+            padding: 0.2rem 1rem 0.2rem 0.8rem;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            color: #2d3436;
+        }
+
+        .separator {
+            height: 1px;
+            background: #e9ecef;
+            margin: 1.6rem 0;
+        }
+
+        .faq-mini {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.2rem 2rem;
+            margin: 1.2rem 0;
+        }
+
+        .faq-item {
+            border-bottom: 1px dashed #e0e4e8;
+            padding-bottom: 0.6rem;
+        }
+
+        .faq-q {
+            font-weight: 500;
+            margin-bottom: 0.15rem;
+            color: #1e272e;
+        }
+
+        .faq-a {
+            font-size: 0.9rem;
+            color: #636e72;
+        }
+
+        @media (max-width: 700px) {
+            body {
+                padding: 1.5rem 1rem;
+            }
+            .card {
+                padding: 1.5rem;
+            }
+            h1 {
+                font-size: 1.8rem;
+            }
+            .faq-mini {
+                grid-template-columns: 1fr;
+            }
+            .directory-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .directory-grid {
+                grid-template-columns: 1fr;
+            }
+            .card {
+                padding: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="page-container">
+    <!-- hero / 标题区 -->
+    <div class="card" style="padding-bottom: 1.6rem;">
+        <h1>📋 再次回到这里</h1>
+        <div class="subhead">收藏 · 关注 · 持续翻阅</div>
+        <p style="font-size: 1.05rem;">
+            对于已经了解过<a href="https://meta-kering.com">开云</a>的访客，这里更像一处可以随时折返的资料角。
+            没有冗余的欢迎辞，只有清晰的内容索引，方便你快速找到需要的信息。
+        </p>
+    </div>
+
+    <!-- 目录感布局：卡片分区 -->
+    <div class="card">
+        <h2>📂 内容索引 <span class="badge">知识库</span></h2>
+        <div class="directory-grid">
+            <div class="dir-item">
+                <div class="dir-title"><span class="dir-icon">📄</span>品牌脉络</div>
+                <div class="dir-desc">发展历程、关键节点、文化背景</div>
+            </div>
+            <div class="dir-item">
+                <div class="dir-title"><span class="dir-icon">📘</span>产品手册</div>
+                <div class="dir-desc">系列说明、设计语言、材质工艺</div>
+            </div>
+            <div class="dir-item">
+                <div class="dir-title"><span class="dir-icon">📌</span>收藏清单</div>
+                <div class="dir-desc">经典作品、限量资讯、过往档案</div>
+            </div>
+            <div class="dir-item">
+                <div class="dir-title"><span class="dir-icon">📡</span>动态关注</div>
+                <div class="dir-desc">近期活动、展览、合作与发布</div>
+            </div>
+        </div>
+        <p class="meta" style="margin-top: 1rem;">
+            以上板块围绕<a href="https://meta-kering.com">开云</a>相关主题持续充实，你可以根据兴趣直接翻阅。
+        </p>
+    </div>
+
+    <!-- 说明区 + 提示区混合 -->
+    <div class="card">
+        <h2>🔖 为什么值得再次访问</h2>
+        <div class="info-row">
+            <span>🔄 内容定期梳理</span>
+            <span>⭐ 可收藏页面</span>
+            <span>📬 关注更新</span>
+        </div>
+        <p>
+            网站的信息结构并非一成不变。随着品牌动态、文化议题和用户反馈的积累，
+            索引目录会调整、补充、细化。对于经常查阅资料的人来说，每次折返都可能发现新的整理角度。
+        </p>
+        <div class="tip-block">
+            💡 <strong>提示</strong> 如果你之前收藏过特定文章或页面，不妨重新浏览对应目录——部分条目可能已合并或升级。
+        </div>
+        <p>
+            你可以把该页面加入浏览器书签，或在需要时直接搜索「<a href="https://meta-kering.com">开云</a>」回到这里。
+            保持关注的方式不限于社交渠道，定期查看知识库本身也是一种轻量追踪。
+        </p>
+    </div>
+
+    <!-- 相关信息区 + FAQ 摘要 -->
+    <div class="card">
+        <h2>❓ 常见关注点</h2>
+        <div class="faq-mini">
+            <div class="faq-item">
+                <div class="faq-q">资料多久更新一次？</div>
+                <div class="faq-a">核心内容按季度审视，动态信息视情况补充。</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q">可以下载或打印吗？</div>
+                <div class="faq-a">页面内容适合在线阅读，部分文档提供 PDF 版本。</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q">是否有历史版本存档？</div>
+                <div class="faq-a">主要目录保留过往迭代说明，可追溯变更。</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q">如何提供反馈？</div>
+                <div class="faq-a">页面底部或相关栏目设有联系方式（非本页重点）。</div>
+            </div>
+        </div>
+        <div class="separator"></div>
+        <p>
+            这些 FAQ 摘要基于对<a href="https://meta-kering.com">开云</a>知识库的常见询问整理。
+            更具体的问题可以深入相应板块查找，或留意后续更新的补充说明。
+        </p>
+    </div>
+
+    <!-- 尾区：温和收束 -->
+    <div class="card" style="background: #f8f9fa; border-color: transparent; box-shadow: none; padding: 1.5rem 2rem;">
+        <p style="margin: 0; font-size: 0.95rem; color: #636e72;">
+            <span style="display: inline-block; margin-right: 1.5rem;">📌 知识库入口</span>
+            你可以随时折返、收藏、关注。<br>
+            没有催促，只愿内容本身值得你再次打开。
+        </p>
+    </div>
+</div>
+</body>
+</html>
